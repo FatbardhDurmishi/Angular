@@ -1,0 +1,64 @@
+<div class="content">
+    <div class="table">
+        <div class="table-header">
+            <h3>Backend Developers</h3>
+        </div>
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>JobPosition</th>
+                <th>Credit Card</th>
+            </tr>
+            <tr *ngFor="let user of backEndUsers">
+                <td>{{user.userName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.jobPosition}}</td>
+                <td>{{user.creditCard}}</td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="table">
+        <div class="table-header">
+            <h3>Frontend Developers</h3>
+        </div>
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>JobPosition</th>
+                <th>Credit Card</th>
+            </tr>
+            <tr *ngFor="let user of frontEndUsers">
+                <td>{{user.userName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.jobPosition}}</td>
+                <td>{{user.creditCard}}</td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="table">
+        <div class="table-header">
+            <h3>FullStack Developers</h3>
+        </div>
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>JobPosition</th>
+                <th>Credit Card</th>
+            </tr>
+            <tr *ngFor="let user of fullStackUsers">
+                <td>{{user.userName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.jobPosition}}</td>
+                <td>{{user.creditCard}}</td>
+            </tr>
+        </table>
+
+    </div>
+</div>
