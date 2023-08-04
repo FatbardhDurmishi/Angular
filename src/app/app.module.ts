@@ -8,9 +8,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { UsersComponent } from './users/users.component';
 import { UserService } from './services/userService';
+import { CreditCardDashedPipe } from './pipes/credit-card-dashed.pipe';
 
 @NgModule({
-  declarations: [AppComponent, FormComponent, UsersComponent],
+  declarations: [
+    AppComponent,
+    FormComponent,
+    UsersComponent,
+    CreditCardDashedPipe,
+  ],
   imports: [
     BrowserModule,
     FormsModule,
