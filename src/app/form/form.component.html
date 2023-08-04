@@ -18,6 +18,7 @@
             <span class="errors" *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">Email
                 is
                 required</span>
+            <span class="errors" *ngIf="userForm.get('email')?.hasError('email')">Email is not valid</span>
         </div>
         <div class="form-input">
             <label for="password">Password</label>
@@ -34,7 +35,8 @@
                 Password
                 is
                 required</span>
-            <span *ngIf="userForm.hasError('passwordsNotMatching')" class="errors">Passwords not matching</span>
+            <span *ngIf="userForm.hasError('passwordsNotMatching') && userForm.get('confirmPassword')?.touched"
+                class="errors">Passwords not matching</span>
         </div>
         <div class="form-input">
             <label>Credit Card</label>
