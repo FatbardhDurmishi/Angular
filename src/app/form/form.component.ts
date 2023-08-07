@@ -1,8 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { User } from '../interfaces/interfaces';
 import { PasswordMatchValidator } from '../CustomValidators/passwordMatchValidator';
 import { UserService } from '../services/userService';
+import { UsernameValidator } from '../CustomValidators/userNameValidator';
 
 @Component({
   selector: 'app-form',
@@ -10,32 +16,22 @@ import { UserService } from '../services/userService';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
-  constructor(private userService: UserService) {}
-  userForm: FormGroup = new FormGroup({});
+  constructor(private userService: UserService, private fb: FormBuilder) {}
 
+  users: User[] = [];
+  userNames: string[] = [];
+
+  userForm: FormGroup = new FormGroup({});
   ngOnInit(): void {
-    this.userForm = new FormGroup(
-      {
-        userName: new FormControl('', Validators.required),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', Validators.required),
-        confirmPassword: new FormControl('', Validators.required),
-        jobPosition: new FormControl('', Validators.required),
-        creditCard: new FormControl('', [
-          Validators.required,
-          Validators.maxLength(16),
-          Validators.minLength(16),
-        ]),
-      },
-      { validators: PasswordMatchValidator() }
-    );
+    this.initializeForm();
+    this.updateData();
   }
 
   onSubmit() {
     if (this.userForm.valid) {
       const formValue = this.userForm.value;
       const newUser: User = {
-        id: this.userService.getUsersLength() + 1,
+        id: this.users.length + 1,
         userName: formValue.userName,
         email: formValue.email,
         password: formValue.password,
@@ -44,9 +40,46 @@ export class FormComponent implements OnInit {
         creditCard: formValue.creditCard,
       };
       this.userService.addUser(newUser);
+      this.updateData();
       this.userForm.reset();
+      this.initializeForm();
     } else {
       this.userForm.markAllAsTouched();
     }
+  }
+
+  initializeForm(): void {
+    debugger;
+    this.userForm = new FormGroup(
+      {
+        userName: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(8),
+        ]),
+        confirmPassword: new FormControl('', [
+          Validators.required,
+          Validators.minLength(8),
+        ]),
+        jobPosition: new FormControl('', Validators.required),
+        creditCard: new FormControl('', [
+          Validators.required,
+          Validators.maxLength(16),
+          Validators.minLength(16),
+        ]),
+      },
+      {
+        validators: [
+          PasswordMatchValidator(),
+          UsernameValidator(this.userNames),
+        ],
+      }
+    );
+  }
+
+  private updateData(): void {
+    this.users = this.userService.getUsers();
+    this.userNames = this.users.map((user) => user.userName);
   }
 }

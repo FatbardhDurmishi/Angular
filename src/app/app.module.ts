@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { UsersComponent } from './users/users.component';
 import { UserService } from './services/userService';
 import { CreditCardDashedPipe } from './pipes/credit-card-dashed.pipe';
+import { SortPipePipe } from './pipes/sort-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { CreditCardDashedPipe } from './pipes/credit-card-dashed.pipe';
     FormComponent,
     UsersComponent,
     CreditCardDashedPipe,
+    SortPipePipe,
   ],
   imports: [
     BrowserModule,
