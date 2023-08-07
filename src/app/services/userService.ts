@@ -16,8 +16,4 @@ export class UserService {
   deleteUser(id: number): void {
     this.users = this.users.filter((user) => user.id !== id);
   }
-
-  getUsersLength(): number {
-    return this.users.length;
-  }
 }

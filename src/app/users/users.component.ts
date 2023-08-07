@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from '../interfaces/interfaces';
 import { UserService } from '../services/userService';
 
@@ -8,17 +8,25 @@ import { UserService } from '../services/userService';
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent {
-  Users: User[];
-  frontEndUsers: User[];
-  backEndUsers: User[];
-  fullStackUsers: User[];
+  Users: User[] = [];
+  frontEndUsers: User[] = [];
+  backEndUsers: User[] = [];
+  fullStackUsers: User[] = [];
 
   constructor(private userService: UserService) {
+    this.updateUserData();
+  }
+
+  deleteUser(id: number): void {
+    this.userService.deleteUser(id);
+    this.updateUserData();
+  }
+
+  private updateUserData(): void {
     this.Users = this.userService.getUsers();
     this.frontEndUsers = this.Users.filter(
       (user) => user.jobPosition.toLowerCase() === 'frontend'
     );
-
     this.backEndUsers = this.Users.filter(
       (user) => user.jobPosition.toLowerCase() === 'backend'
     );

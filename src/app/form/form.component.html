@@ -11,6 +11,9 @@
             <span class="errors" *ngIf="userForm.get('userName')?.invalid && userForm.get('userName')?.touched">Username
                 is
                 required</span>
+            <span class="errors"
+                *ngIf="userForm.hasError('userNameNotAvailable') && userForm.get('userName')?.touched">Username
+                not available</span>
         </div>
         <div class="form-input">
             <label for="email">Email</label>
@@ -18,7 +21,9 @@
             <span class="errors" *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">Email
                 is
                 required</span>
-            <span class="errors" *ngIf="userForm.get('email')?.hasError('email')">Email is not valid</span>
+            <span class="errors"
+                *ngIf="userForm.get('email')?.hasError('email')  && userForm.get('email')?.touched">Email is
+                not valid</span>
         </div>
         <div class="form-input">
             <label for="password">Password</label>
@@ -48,12 +53,18 @@
                 *ngIf="userForm.get('creditCard')?.hasError('minlength') || userForm.get('creditCard')?.hasError('maxlength')">Credit
                 Card is not valid</span>
         </div>
-        <div class=" form-input">
+        <div class="form-input">
             <label for="address">Job Position</label>
             <div class="radio-buttons">
-                <input type="radio" formControlName="jobPosition" name="jobPosition" value="Frontend">Frontend
-                <input type="radio" formControlName="jobPosition" name="jobPosition" value="Backend">Backend
-                <input type="radio" formControlName="jobPosition" name="jobPosition" value="Fullstack">Fullstack
+                <label>
+                    <input type="radio" formControlName="jobPosition" name="jobPosition" value="Frontend">Frontend
+                </label>
+                <label>
+                    <input type="radio" formControlName="jobPosition" name="jobPosition" value="Backend">Backend
+                </label>
+                <label>
+                    <input type="radio" formControlName="jobPosition" name="jobPosition" value="Fullstack">Fullstack
+                </label>
             </div>
             <span class="errors"
                 *ngIf="userForm.get('jobPosition')?.invalid && userForm.get('jobPosition')?.touched">Job

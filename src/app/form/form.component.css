@@ -58,6 +58,11 @@ button {
   align-items: center;
 }
 
+.radio-buttons label {
+  display: flex;
+  align-items: center;
+}
+
 .btn-submit {
   width: 50%;
   height: 30px;
