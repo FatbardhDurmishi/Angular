@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../interfaces/interfaces';
 import { PasswordMatchValidator } from '../CustomValidators/passwordMatchValidator';
 import { UserService } from '../services/userService';
@@ -16,7 +11,9 @@ import { UsernameValidator } from '../CustomValidators/userNameValidator';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
-  constructor(private userService: UserService, private fb: FormBuilder) {}
+  constructor(private userService: UserService) {
+    this.updateData();
+  }
 
   users: User[] = [];
   userNames: string[] = [];
@@ -24,7 +21,6 @@ export class FormComponent implements OnInit {
   userForm: FormGroup = new FormGroup({});
   ngOnInit(): void {
     this.initializeForm();
-    this.updateData();
   }
 
   onSubmit() {
