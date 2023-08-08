@@ -18,7 +18,7 @@ export class FormComponent implements OnInit {
   users: User[] = [];
   userNames: string[] = [];
 
-  userForm: FormGroup = new FormGroup({});
+  userForm!: FormGroup;
   ngOnInit(): void {
     this.initializeForm();
   }
@@ -45,7 +45,6 @@ export class FormComponent implements OnInit {
   }
 
   initializeForm(): void {
-    debugger;
     this.userForm = new FormGroup(
       {
         userName: new FormControl('', [Validators.required]),

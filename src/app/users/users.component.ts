@@ -34,4 +34,9 @@ export class UsersComponent {
       (user) => user.jobPosition.toLowerCase() === 'fullstack'
     );
   }
+  // <i class="fa-solid fa-sort-up"></i>
+
+  trackByUserId(index: number, user: User): number {
+    return user.id; //
+  }
 }

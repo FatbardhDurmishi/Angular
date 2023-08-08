@@ -8,27 +8,29 @@
         <div class="form-input">
             <label for="Username">Username</label>
             <input type="text" formControlName="userName">
-            <span class="errors" *ngIf="userForm.get('userName')?.invalid && userForm.get('userName')?.touched">Username
+            <span class="errors"
+                *ngIf="userForm.controls['userName'].invalid && userForm.controls['userName'].touched">Username
                 is
                 required</span>
             <span class="errors"
-                *ngIf="userForm.hasError('userNameNotAvailable') && userForm.get('userName')?.touched">Username
+                *ngIf="userForm.hasError('userNameNotAvailable') && userForm.controls['userName'].touched">Username
                 not available</span>
         </div>
         <div class="form-input">
             <label for="email">Email</label>
             <input type="email" formControlName="email">
-            <span class="errors" *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">Email
+            <span class="errors" *ngIf="userForm.controls['email'].invalid && userForm.controls['email'].touched">Email
                 is
                 required</span>
             <span class="errors"
-                *ngIf="userForm.get('email')?.hasError('email')  && userForm.get('email')?.touched">Email is
+                *ngIf="userForm.controls['email'].hasError('email')  && userForm.controls['email'].touched">Email is
                 not valid</span>
         </div>
         <div class="form-input">
             <label for="password">Password</label>
             <input type="password" formControlName="password">
-            <span class="errors" *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched">Password
+            <span class="errors"
+                *ngIf="userForm.controls['password'].invalid && userForm.controls['password'].touched">Password
                 is
                 required</span>
         </div>
@@ -36,21 +38,22 @@
             <label for="confirmPassword">Confirm Password</label>
             <input type="password" required formControlName="confirmPassword">
             <span class="errors"
-                *ngIf="userForm.get('confirmPassword')?.invalid && userForm.get('confirmPassword')?.touched">Confirm
+                *ngIf="userForm.controls['confirmPassword'].invalid && userForm.controls['confirmPassword'].touched">Confirm
                 Password
                 is
                 required</span>
-            <span *ngIf="userForm.hasError('passwordsNotMatching') && userForm.get('confirmPassword')?.touched"
+            <span *ngIf="userForm.hasError('passwordsNotMatching') && userForm.controls['confirmPassword'].touched"
                 class="errors">Passwords not matching</span>
         </div>
         <div class="form-input">
             <label>Credit Card</label>
             <input type="text" formControlName="creditCard">
             <span class="errors"
-                *ngIf="userForm.get('creditCard')?.invalid && userForm.get('creditCard')?.touched">Credit Card is
+                *ngIf="userForm.controls['creditCard'].invalid && userForm.controls['creditCard'].touched">Credit Card
+                is
                 required</span>
             <span class="errors"
-                *ngIf="userForm.get('creditCard')?.hasError('minlength') || userForm.get('creditCard')?.hasError('maxlength')">Credit
+                *ngIf="userForm.controls['creditCard'].hasError('minlength') || userForm.controls['creditCard'].hasError('maxlength')">Credit
                 Card is not valid</span>
         </div>
         <div class="form-input">
@@ -67,7 +70,7 @@
                 </label>
             </div>
             <span class="errors"
-                *ngIf="userForm.get('jobPosition')?.invalid && userForm.get('jobPosition')?.touched">Job
+                *ngIf="userForm.controls['jobPosition'].invalid && userForm.controls['jobPosition'].touched">Job
                 Position
                 is
                 required</span>

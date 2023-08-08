@@ -5,13 +5,15 @@
         </div>
         <table>
             <tr>
-                <th>Username</th>
+                <th>Username<button>
+                        <i class="fa-solid fa-sort-down"></i>
+                    </button></th>
                 <th>Email</th>
                 <th>JobPosition</th>
                 <th>Credit Card</th>
                 <th>Actions</th>
             </tr>
-            <tr *ngFor="let user of backEndUsers | sortPipe:'asc' ">
+            <tr *ngFor="let user of backEndUsers | sortPipe:'asc';trackBy: trackByUserId">
                 <td>{{user.userName}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.jobPosition}}</td>
@@ -28,13 +30,15 @@
         </div>
         <table>
             <tr>
-                <th>Username</th>
+                <th>Username<button>
+                        <i class="fa-solid fa-sort-down"></i>
+                    </button></th>
                 <th>Email</th>
                 <th>JobPosition</th>
                 <th>Credit Card</th>
                 <th>Actions</th>
             </tr>
-            <tr *ngFor="let user of frontEndUsers | sortPipe:'asc' ">
+            <tr *ngFor="let user of frontEndUsers | sortPipe:'asc';trackBy:trackByUserId ">
                 <td>{{user.userName}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.jobPosition}}</td>
@@ -51,13 +55,15 @@
         </div>
         <table>
             <tr>
-                <th>Username</th>
+                <th>Username<button>
+                        <i class="fa-solid fa-sort-down"></i>
+                    </button></th>
                 <th>Email</th>
                 <th>JobPosition</th>
                 <th>Credit Card</th>
                 <th>Actions</th>
             </tr>
-            <tr *ngFor="let user of fullStackUsers | sortPipe:'asc'">
+            <tr *ngFor="let user of fullStackUsers | sortPipe:'asc'; trackBy:trackByUserId">
                 <td>{{user.userName }}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.jobPosition}}</td>
