@@ -25,14 +25,21 @@
             <span class="errors"
                 *ngIf="userForm.controls['email'].hasError('email')  && userForm.controls['email'].touched">Email is
                 not valid</span>
+            <span class="errors"
+                *ngIf="userForm.hasError('userWithEmailExists') && userForm.controls['email'].touched">User with this
+                email already exists!</span>
         </div>
         <div class="form-input">
             <label for="password">Password</label>
             <input type="password" formControlName="password">
             <span class="errors"
-                *ngIf="userForm.controls['password'].invalid && userForm.controls['password'].touched">Password
+                *ngIf="userForm.controls['password'].invalid && userForm.controls['password'].touched  && !userForm.controls['password'].hasError('minlength') ">Password
                 is
                 required</span>
+            <span class="errors"
+                *ngIf="userForm.controls['password'].hasError('minlength')&& userForm.controls['password'].touched">Password
+                should be at least 8 charachters</span>
+
         </div>
         <div class="form-input">
             <label for="confirmPassword">Confirm Password</label>
@@ -49,7 +56,8 @@
             <label>Credit Card</label>
             <input type="text" formControlName="creditCard">
             <span class="errors"
-                *ngIf="userForm.controls['creditCard'].invalid && userForm.controls['creditCard'].touched">Credit Card
+                *ngIf="userForm.controls['creditCard'].invalid && userForm.controls['creditCard'].touched &&!(userForm.controls['creditCard'].hasError('minlength') || userForm.controls['creditCard'].hasError('maxlength'))">Credit
+                Card
                 is
                 required</span>
             <span class="errors"

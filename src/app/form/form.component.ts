@@ -4,6 +4,7 @@ import { User } from '../interfaces/interfaces';
 import { PasswordMatchValidator } from '../CustomValidators/passwordMatchValidator';
 import { UserService } from '../services/userService';
 import { UsernameValidator } from '../CustomValidators/userNameValidator';
+import { EmailValidator } from '../CustomValidators/emailValidator';
 
 @Component({
   selector: 'app-form',
@@ -17,6 +18,7 @@ export class FormComponent implements OnInit {
 
   users: User[] = [];
   userNames: string[] = [];
+  emails: string[] = [];
 
   userForm!: FormGroup;
   ngOnInit(): void {
@@ -68,6 +70,7 @@ export class FormComponent implements OnInit {
         validators: [
           PasswordMatchValidator(),
           UsernameValidator(this.userNames),
+          EmailValidator(this.emails),
         ],
       }
     );
@@ -76,5 +79,6 @@ export class FormComponent implements OnInit {
   private updateData(): void {
     this.users = this.userService.getUsers();
     this.userNames = this.users.map((user) => user.userName);
+    this.emails = this.users.map((user) => user.email);
   }
 }
