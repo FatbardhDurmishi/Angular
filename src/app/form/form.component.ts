@@ -5,6 +5,7 @@ import { PasswordMatchValidator } from '../CustomValidators/passwordMatchValidat
 import { UserService } from '../services/userService';
 import { UsernameValidator } from '../CustomValidators/userNameValidator';
 import { EmailValidator } from '../CustomValidators/emailValidator';
+import { NumbersOnlyValidator } from '../CustomValidators/numbersOnlyValidator';
 
 @Component({
   selector: 'app-form',
@@ -71,6 +72,7 @@ export class FormComponent implements OnInit {
           PasswordMatchValidator(),
           UsernameValidator(this.userNames),
           EmailValidator(this.emails),
+          NumbersOnlyValidator(),
         ],
       }
     );
