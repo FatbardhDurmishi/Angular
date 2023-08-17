@@ -54,7 +54,7 @@
         </div>
         <div class="form-input">
             <label>Credit Card</label>
-            <input type="text" formControlName="creditCard">
+            <input type="number" formControlName="creditCard">
             <span class="errors"
                 *ngIf="userForm.controls['creditCard'].invalid && userForm.controls['creditCard'].touched &&!(userForm.controls['creditCard'].hasError('minlength') || userForm.controls['creditCard'].hasError('maxlength'))">Credit
                 Card
