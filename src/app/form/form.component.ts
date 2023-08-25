@@ -6,6 +6,7 @@ import { UserService } from '../services/userService';
 import { UsernameValidator } from '../CustomValidators/userNameValidator';
 import { EmailValidator } from '../CustomValidators/emailValidator';
 import { NumbersOnlyValidator } from '../CustomValidators/numbersOnlyValidator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -13,7 +14,7 @@ import { NumbersOnlyValidator } from '../CustomValidators/numbersOnlyValidator';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.updateData();
   }
 
@@ -21,34 +22,39 @@ export class FormComponent implements OnInit {
   userNames: string[] = [];
   emails: string[] = [];
 
-  userForm!: FormGroup;
-  ngOnInit(): void {
+  registerForm!: FormGroup;
+
+  ngOnInit() {
     this.initializeForm();
   }
 
   onSubmit() {
-    if (this.userForm.valid) {
-      const formValue = this.userForm.value;
+    debugger;
+    if (this.registerForm.valid) {
+      const formValue = this.registerForm.value;
       const newUser: User = {
         id: this.users.length + 1,
         userName: formValue.userName,
         email: formValue.email,
         password: formValue.password,
         confirmPassword: formValue.confirmPassword,
-        jobPosition: formValue.jobPosition,
+        jobPosition: formValue.role === 'Admin' ? '' : formValue.jobPosition,
         creditCard: formValue.creditCard,
+        gender: formValue.gender,
+        role: formValue.role,
       };
       this.userService.addUser(newUser);
       this.updateData();
-      this.userForm.reset();
+      this.registerForm.reset();
       this.initializeForm();
+      this.router.navigate(['/login']);
     } else {
-      this.userForm.markAllAsTouched();
+      this.registerForm.markAllAsTouched();
     }
   }
 
   initializeForm(): void {
-    this.userForm = new FormGroup(
+    this.registerForm = new FormGroup(
       {
         userName: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.email]),
@@ -66,6 +72,8 @@ export class FormComponent implements OnInit {
           Validators.maxLength(16),
           Validators.minLength(16),
         ]),
+        gender: new FormControl(Validators.required),
+        role: new FormControl(Validators.required),
       },
       {
         validators: [
@@ -76,11 +84,29 @@ export class FormComponent implements OnInit {
         ],
       }
     );
+    this.registerForm.get('role')?.valueChanges.subscribe((role) => {
+      this.changeJobValidation();
+    });
   }
 
   private updateData(): void {
-    this.users = this.userService.getUsers();
+    this.userService.users$.subscribe((res) => {
+      this.users = res;
+    });
     this.userNames = this.users.map((user) => user.userName);
     this.emails = this.users.map((user) => user.email);
+  }
+
+  changeJobValidation() {
+    const userRole = this.registerForm.controls['role'].value;
+    if (userRole === 'Admin') {
+      this.registerForm.controls['jobPosition'].clearValidators();
+      this.registerForm.controls['jobPosition'].updateValueAndValidity();
+    } else {
+      this.registerForm.controls['jobPosition'].setValidators(
+        Validators.required
+      );
+      this.registerForm.controls['jobPosition'].updateValueAndValidity();
+    }
   }
 }

@@ -8,37 +8,52 @@ import { UserService } from '../services/userService';
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent {
-  Users: User[] = [];
+  users: User[] = [];
   frontEndUsers: User[] = [];
   backEndUsers: User[] = [];
   fullStackUsers: User[] = [];
-  arrowClassNames: string[] = [
-    'fa-solid fa-sort-down',
-    'fa-solid fa-sort-down',
-    'fa-solid fa-sort-down',
-  ];
-  sortingStates: boolean[] = [true, true, true];
+  // arrowClassNames: string[] = [
+  //   'fa-solid fa-sort-down',
+  //   'fa-solid fa-sort-down',
+  //   'fa-solid fa-sort-down',
+  // ];
+  // sortingStates: boolean[] = [true, true, true];
 
   constructor(private userService: UserService) {
     this.updateUserData();
   }
 
   deleteUser(id: number): void {
+    debugger;
+    console.log(id);
     this.userService.deleteUser(id);
     this.updateUserData();
   }
 
   private updateUserData(): void {
-    this.Users = this.userService.getUsers();
-    this.frontEndUsers = this.Users.filter(
-      (user) => user.jobPosition.toLowerCase() === 'frontend'
-    ).sort((a, b) => a.userName.localeCompare(b.userName));
-    this.backEndUsers = this.Users.filter(
-      (user) => user.jobPosition.toLowerCase() === 'backend'
-    ).sort((a, b) => a.userName.localeCompare(b.userName));
-    this.fullStackUsers = this.Users.filter(
-      (user) => user.jobPosition.toLowerCase() === 'fullstack'
-    ).sort((a, b) => a.userName.localeCompare(b.userName));
+    this,
+      this.userService.users$.subscribe((res) => {
+        this.users = res;
+      });
+    this.frontEndUsers = this.users
+      .filter(
+        (user) =>
+          user.jobPosition.toLowerCase() === 'frontend' && user.role !== 'Admin'
+      )
+      .sort((a, b) => a.userName.localeCompare(b.userName));
+    this.backEndUsers = this.users
+      .filter(
+        (user) =>
+          user.jobPosition.toLowerCase() === 'backend' && user.role !== 'Admin'
+      )
+      .sort((a, b) => a.userName.localeCompare(b.userName));
+    this.fullStackUsers = this.users
+      .filter(
+        (user) =>
+          user.jobPosition.toLowerCase() === 'fullstack' &&
+          user.role !== 'Admin'
+      )
+      .sort((a, b) => a.userName.localeCompare(b.userName));
   }
 
   // sortUsersByUsername(users: User[]) {
@@ -55,20 +70,20 @@ export class UsersComponent {
   //   }
   // }
 
-  sortUsersByUsername(users: User[], tableIndex: number) {
-    if (users.length >= 2) {
-      if (this.sortingStates[tableIndex]) {
-        this.arrowClassNames[tableIndex] = 'fa-solid fa-sort-up';
-        users.sort((a, b) => b.userName.localeCompare(a.userName));
-      } else {
-        this.arrowClassNames[tableIndex] = 'fa-solid fa-sort-down';
-        users.sort((a, b) => a.userName.localeCompare(b.userName));
-      }
-      this.sortingStates[tableIndex] = !this.sortingStates[tableIndex];
-    }
-  }
+  // sortUsersByUsername(users: User[], tableIndex: number) {
+  //   if (users.length >= 2) {
+  //     if (this.sortingStates[tableIndex]) {
+  //       this.arrowClassNames[tableIndex] = 'fa-solid fa-sort-up';
+  //       users.sort((a, b) => b.userName.localeCompare(a.userName));
+  //     } else {
+  //       this.arrowClassNames[tableIndex] = 'fa-solid fa-sort-down';
+  //       users.sort((a, b) => a.userName.localeCompare(b.userName));
+  //     }
+  //     this.sortingStates[tableIndex] = !this.sortingStates[tableIndex];
+  //   }
+  // }
 
-  trackByUserId(index: number, user: User): number {
-    return user.id; //
-  }
+  // trackByUserId(index: number, user: User): number {
+  //   return user.id; //
+  // }
 }
