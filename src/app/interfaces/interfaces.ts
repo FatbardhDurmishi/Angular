@@ -6,4 +6,6 @@ export interface User {
   confirmPassword: string;
   jobPosition: string;
   creditCard: string;
+  gender: string;
+  role: string;
 }

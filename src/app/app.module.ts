@@ -10,6 +10,12 @@ import { UsersComponent } from './users/users.component';
 import { UserService } from './services/userService';
 import { CreditCardDashedPipe } from './pipes/credit-card-dashed.pipe';
 import { SortPipePipe } from './pipes/sort-pipe.pipe';
+import { LogInFormComponent } from './log-in-form/log-in-form.component';
+import { ProfileComponent } from './profile/profile.component';
+import { UsersTableComponent } from './users/users-table/users-table.component';
+import { UsersGuardService } from './services/userGuard-service';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ProfileGuardService } from './services/profileGuard-service';
 
 @NgModule({
   declarations: [
@@ -18,6 +24,10 @@ import { SortPipePipe } from './pipes/sort-pipe.pipe';
     UsersComponent,
     CreditCardDashedPipe,
     SortPipePipe,
+    LogInFormComponent,
+    ProfileComponent,
+    UsersTableComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +36,7 @@ import { SortPipePipe } from './pipes/sort-pipe.pipe';
     AppRoutingModule,
     RouterModule,
   ],
-  providers: [UserService],
+  providers: [UserService, UsersGuardService, ProfileGuardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

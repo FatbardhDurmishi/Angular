@@ -1,0 +1,172 @@
+<div class="container">
+  <div class="header">
+    <h1>Your Profile</h1>
+  </div>
+  <div class="content">
+    <img [src]="avatar" width="150px" />
+    <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
+      <div class="info-container">
+        <div class="info">
+          <div class="info-details">
+            <div class="input">
+              <label>Username</label>
+              <input type="text" formControlName="userName" />
+              <span
+                class="errors"
+                *ngIf="
+                  editUserForm.controls['userName'].invalid &&
+                  editUserForm.controls['userName'].touched
+                "
+                >Username is required</span
+              >
+            </div>
+
+            <span
+              class="errors"
+              *ngIf="
+                editUserForm.hasError('userNameNotAvailable') &&
+                editUserForm.controls['userName'].touched
+              "
+              >Username not available</span
+            >
+          </div>
+          <div class="info-details">
+            <div class="input">
+              <label>Gender</label>
+              <select formControlName="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <span class="errors">
+              <span
+                *ngIf="
+                  editUserForm.controls['gender'].invalid &&
+                  editUserForm.controls['gender'].touched
+                "
+                >Gender is required</span
+              >
+            </span>
+          </div>
+        </div>
+        <div class="info">
+          <div class="info-details">
+            <div class="input">
+              <label>Email</label>
+              <input type="text" formControlName="email" />
+            </div>
+
+            <span
+              class="errors"
+              *ngIf="
+                editUserForm.controls['email'].invalid &&
+                editUserForm.controls['email'].touched
+              "
+              >Email is required</span
+            >
+            <span
+              class="errors"
+              *ngIf="
+                editUserForm.controls['email'].hasError('email') &&
+                editUserForm.controls['email'].touched
+              "
+              >Email is not valid</span
+            >
+            <span
+              class="errors"
+              *ngIf="
+                editUserForm.hasError('userWithEmailExists') &&
+                editUserForm.controls['email'].touched
+              "
+              >User with this email already exists!</span
+            >
+          </div>
+          <div class="info-details">
+            <div class="input">
+              <label>Credit Card</label>
+              <input type="text" formControlName="creditCard" />
+            </div>
+            <span
+              class="errors"
+              *ngIf="
+                editUserForm.controls['creditCard'].invalid &&
+                editUserForm.controls['creditCard'].touched &&
+                !(
+                  editUserForm.controls['creditCard'].hasError('minlength') ||
+                  editUserForm.controls['creditCard'].hasError('maxlength')
+                )
+              "
+              >Credit Card is required</span
+            >
+            <span class="errors">
+              <span
+                *ngIf="
+                  editUserForm.controls['creditCard'].hasError('minlength') ||
+                  editUserForm.controls['creditCard'].hasError('maxlength')
+                "
+                >Credit Card is not valid</span
+              >
+              <span
+                *ngIf="
+                  editUserForm.hasError('creditCardNotNumber') &&
+                  editUserForm.controls['creditCard'].touched
+                "
+                >Credit Card must contain only numbers</span
+              >
+            </span>
+          </div>
+        </div>
+        <div class="info">
+          <div
+            class="info-details"
+            *ngIf="currentUser.role === 'Admin' && enableRoleEdit"
+          >
+            <div class="input">
+              <label>Role</label>
+              <select formControlName="role">
+                <option value="Admin">Admin</option>
+                <option value="User">User</option>
+              </select>
+            </div>
+            <span class="errors">
+              <span
+                *ngIf="
+                  editUserForm.controls['role'].invalid &&
+                  editUserForm.controls['role'].touched
+                "
+                >Gender is required</span
+              >
+            </span>
+          </div>
+          <div
+            class="info-details"
+            *ngIf="this.editUserForm.controls['role'].value === 'User'"
+          >
+            <div class="input">
+              <label>Job Position</label>
+              <select formControlName="jobPosition">
+                <option value="Frontend">Frontend Developer</option>
+                <option value="Backend">Backend Developer</option>
+                <option value="Fullstack">Fullstack Developer</option>
+              </select>
+            </div>
+            <span
+              class="errors"
+              *ngIf="
+                editUserForm.controls['jobPosition'].invalid &&
+                editUserForm.controls['jobPosition'].touched
+              "
+              >Job Position is required</span
+            >
+          </div>
+        </div>
+      </div>
+      <button type="submit" [ngClass]="{ disabled: !enableEdit }">Save</button>
+    </form>
+    <div class="footer">
+      <button [ngClass]="{ disabled: enableEdit }" (click)="onEnableEdit()">
+        Edit Profile
+      </button>
+    </div>
+  </div>
+</div>

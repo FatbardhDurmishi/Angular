@@ -1,0 +1,13 @@
+<nav>
+  <ng-container *ngIf="currentUser?.role === 'Admin'"
+    ><span class="nav-item">
+      <a routerLink="/users">Users</a>
+    </span>
+    <span class="nav-item">
+      <a routerLink="/profile">Profile</a>
+    </span>
+  </ng-container>
+  <span *ngIf="currentUser != null">
+    <button class="logout" (click)="logout()">Logout</button>
+  </span>
+</nav>

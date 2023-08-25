@@ -1,0 +1,56 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div class="form-header">
+    <h2>Log In</h2>
+  </div>
+  <span class="errors">
+    <span *ngIf="this.loginForm.hasError('userNotValid') && formSubmitted">
+      Email or password is incorrect
+    </span>
+  </span>
+  <div class="form-inputs">
+    <div class="form-input">
+      <label>Email</label>
+      <input type="email" formControlName="email" />
+    </div>
+    <span class="errors">
+      <span
+        *ngIf="
+          this.loginForm.controls['email'].invalid &&
+          this.loginForm.controls['email'].touched &&
+          this.loginForm.controls['email'].value != ''
+        "
+      >
+        Email is not valid
+      </span>
+      <span
+        *ngIf="
+          this.loginForm.controls['email'].invalid &&
+          this.loginForm.controls['email'].touched &&
+          this.loginForm.controls['email'].value === ''
+        "
+      >
+        Email is required
+      </span>
+    </span>
+    <div class="form-input">
+      <label>Password</label>
+      <input type="password" formControlName="password" />
+    </div>
+    <span class="errors">
+      <span
+        *ngIf="
+          this.loginForm.controls['password'].invalid &&
+          this.loginForm.controls['password'].touched &&
+          this.loginForm.controls['password'].value === ''
+        "
+      >
+        Password is required
+      </span>
+    </span>
+    <button type="submit" class="btn-submit">Login</button>
+  </div>
+  <div class="form-footer">
+    Don't have an account?
+    <a routerLink="/register" class="register">Create Account here.</a>
+  </div>
+</form>
