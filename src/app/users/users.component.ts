@@ -25,7 +25,6 @@ export class UsersComponent {
 
   deleteUser(id: number): void {
     debugger;
-    console.log(id);
     this.userService.deleteUser(id);
     this.updateUserData();
   }

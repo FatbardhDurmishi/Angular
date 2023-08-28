@@ -1,13 +1,22 @@
 <nav>
-  <ng-container *ngIf="currentUser?.role === 'Admin'"
-    ><span class="nav-item">
-      <a routerLink="/users">Users</a>
-    </span>
-    <span class="nav-item">
-      <a routerLink="/profile">Profile</a>
-    </span>
-  </ng-container>
-  <span *ngIf="currentUser != null">
-    <button class="logout" (click)="logout()">Logout</button>
-  </span>
+  <div class="nav-content">
+    <ng-container *ngIf="currentUser?.role === 'Admin'">
+      <span class="nav-item">
+        <a routerLink="/users">Users</a>
+      </span>
+      <span class="nav-item">
+        <a routerLink="/profile">Profile</a>
+      </span>
+    </ng-container>
+    <ng-container *ngIf="currentUser != null">
+      <span class="nav-item">
+        <button class="logout" (click)="logout()">Logout</button>
+      </span>
+      <div class="username">
+        <span class="nav-item">
+          {{ currentUser.userName }}
+        </span>
+      </div>
+    </ng-container>
+  </div>
 </nav>

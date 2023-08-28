@@ -15,8 +15,6 @@ export class ProfileGuardService implements CanActivate {
     this.userService.profileUser$.subscribe((res) => {
       profileUser = res!;
     });
-    console.log(currentUser, 'currentuser');
-    console.log(profileUser, 'profileuser');
     if (currentUser === null && profileUser === null) {
       this.router.navigate(['/login']);
       return false;

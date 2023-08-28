@@ -117,10 +117,7 @@
           </div>
         </div>
         <div class="info">
-          <div
-            class="info-details"
-            *ngIf="currentUser.role === 'Admin' && enableRoleEdit"
-          >
+          <div class="info-details" *ngIf="enableRoleEdit">
             <div class="input">
               <label>Role</label>
               <select formControlName="role">

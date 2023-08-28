@@ -50,7 +50,6 @@ export class UsersTableComponent {
 
   showProfile(user: User) {
     debugger;
-    console.log(user);
     this.userService.setProfileUser(user);
     this.router.navigate(['/profile']);
   }

@@ -70,7 +70,7 @@ export class UserService {
     this.currentUserSubject.next(currentUser);
   }
 
-  public setProfileUser(value: User) {
+  public setProfileUser(value: User | null) {
     this.profileUserSubject.next(value);
   }
 }

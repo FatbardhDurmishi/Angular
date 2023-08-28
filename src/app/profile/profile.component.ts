@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PasswordMatchValidator } from '../CustomValidators/passwordMatchValidator';
 import { NumbersOnlyValidator } from '../CustomValidators/numbersOnlyValidator';
@@ -12,7 +12,7 @@ import { UserService } from '../services/userService';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   enableEdit: boolean = false;
   users: User[] = [];
   userNames: string[] = [];
@@ -113,6 +113,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfileUserData() {
+    //me ndryshu logjiken kur profileuser nuk osht null
     this.userService.profileUser$.subscribe((res) => {
       this.currentUser = res!;
     });
@@ -146,6 +147,7 @@ export class ProfileComponent implements OnInit {
   }
 
   setEnableRoleEdit() {
+    debugger;
     var profileUser: User;
     this.userService.profileUser$.subscribe((res) => {
       profileUser = res!;
@@ -177,5 +179,9 @@ export class ProfileComponent implements OnInit {
         this.emails.push(user.email);
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.userService.setProfileUser(null);
   }
 }
