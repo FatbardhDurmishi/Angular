@@ -29,7 +29,6 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger;
     if (this.registerForm.valid) {
       const formValue = this.registerForm.value;
       const newUser: User = {

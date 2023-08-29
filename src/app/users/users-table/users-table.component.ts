@@ -19,16 +19,10 @@ export class UsersTableComponent {
   @Output() deleteUserId: EventEmitter<number> = new EventEmitter<number>();
 
   onDeleteUser(id: number, event: Event) {
-    debugger;
     event.stopPropagation();
 
     this.deleteUserId.emit(id);
   }
-
-  // deleteUser(id: number): void {
-  //   debugger;
-  //   this.userService.deleteUser(id);
-  // }
 
   sortUsersByUsername(users: User[]) {
     if (users.length >= 2) {
@@ -49,7 +43,6 @@ export class UsersTableComponent {
   }
 
   showProfile(user: User) {
-    debugger;
     this.userService.setProfileUser(user);
     this.router.navigate(['/profile']);
   }

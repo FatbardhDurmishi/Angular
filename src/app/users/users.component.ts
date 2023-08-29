@@ -24,7 +24,6 @@ export class UsersComponent {
   }
 
   deleteUser(id: number): void {
-    debugger;
     this.userService.deleteUser(id);
     this.updateUserData();
   }
@@ -54,20 +53,6 @@ export class UsersComponent {
       )
       .sort((a, b) => a.userName.localeCompare(b.userName));
   }
-
-  // sortUsersByUsername(users: User[]) {
-  //   debugger;
-  //   if (users.length >= 2) {
-  //     if (arrayIsAsscending) {
-  //       this.arrowClassName = 'fa-solid fa-sort-up';
-  //       users.sort((a, b) => b.userName.localeCompare(a.userName));
-  //     } else {
-  //       this.arrowClassName = 'fa-solid fa-sort-down';
-  //       users.sort((a, b) => a.userName.localeCompare(b.userName));
-  //     }
-  //     this.arrayIsAsscending = !arrayIsAsscending;
-  //   }
-  // }
 
   // sortUsersByUsername(users: User[], tableIndex: number) {
   //   if (users.length >= 2) {

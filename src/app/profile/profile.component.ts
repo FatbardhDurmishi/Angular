@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PasswordMatchValidator } from '../CustomValidators/passwordMatchValidator';
 import { NumbersOnlyValidator } from '../CustomValidators/numbersOnlyValidator';
 import { UsernameValidator } from '../CustomValidators/userNameValidator';
 import { EmailValidator } from '../CustomValidators/emailValidator';
@@ -113,7 +112,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   updateProfileUserData() {
-    //me ndryshu logjiken kur profileuser nuk osht null
     this.userService.profileUser$.subscribe((res) => {
       this.currentUser = res!;
     });
@@ -138,7 +136,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.userService.profileUser$.subscribe((res) => {
       profileUser = res!;
     });
-    debugger;
     if (this.currentUser.role === 'Admin' && profileUser! === null) {
       this.userService.setCurrentUser(user);
     } else {
@@ -147,12 +144,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   setEnableRoleEdit() {
-    debugger;
     var profileUser: User;
     this.userService.profileUser$.subscribe((res) => {
       profileUser = res!;
     });
-    if (this.currentUser.role === 'Admin' && profileUser! === null) {
+    if (
+      (this.currentUser.role === 'Admin' && profileUser! === null) ||
+      this.currentUser.role === 'User'
+    ) {
       this.editUserForm.get('role')?.clearValidators();
       this.editUserForm.get('role')?.updateValueAndValidity();
       this.enableRoleEdit = false;
